@@ -208,7 +208,7 @@ class DataRepository
     }
     public function findDetailBySample($id)
     {
-        $select = $this->pdo->prepare('SELECT Water_temperature, Filtered_volume, Commentaires, Sea_state, Start_time, Wind_force FROM prelevements WHERE Sample = ?');
+        $select = $this->pdo->prepare('SELECT Temperature_C, Volume_filtered_m3, Commentaires, Sea_state_B, Start_time_UTC, Wind_force_B FROM prelevements WHERE Sample = ?');
         $select->execute(array($id));
 
         return $select->fetch();
