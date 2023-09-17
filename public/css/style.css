@@ -1,3 +1,9 @@
+.ajout_ligne {
+  color: white;
+  cursor: pointer;
+  padding-bottom: 1rem;
+}
+
 .nav a {
   font-size: 1.2rem;
   font-weight: 600;
@@ -9,13 +15,18 @@
   padding-bottom: 10px;
 }
 
-
-
+.container-fluid.formAddSampling {
+  background-color:#1B3C60;
+  padding:2rem;
+}
 .title-asso {
   color:antiquewhite;
   font-size:3rem;
 }
-
+label{
+  color:antiquewhite;
+  font-size:1rem;
+}
 .p-asso {
   color:white;
   font-weight: 600;

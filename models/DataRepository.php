@@ -43,7 +43,7 @@ class DataRepository
 
             if ($this->validationPrelevement($data)) {
                 $data['km2'] = $data["boatSpeed"] * 1.852 * 0.3333 * (60 * 10 * 1e-5);
-                $data['filteredVolume'] = ($data["startFlowMeter"] - $data["endFlowMeter"]) * 0.3 * 0.2 * 0.6;
+                $data['filteredVolume'] = ($data["endFlowMeter"] - $data["startFlowMeter"]) * 0.3 * 0.2 * 0.6;
 
                 // Les champs du formulaire sont valides, vous pouvez effectuer les actions nécessaires
                 $data['concentration_km2'] = $data["particlesNumber"] / $data["km2"];
@@ -80,7 +80,7 @@ class DataRepository
     public function editBySample($id, $post)
     {
         $post['km2'] = $post["boatSpeed"] * 1.852 * 0.3333 * (60 * 10 * 1e-5);
-        $post['filteredVolume'] = ($post["startFlowMeter"] - $post["endFlowMeter"]) * 0.3 * 0.2 * 0.6;
+        $post['filteredVolume'] = ($post["endFlowMeter"] - $post["startFlowMeter"]) * 0.3 * 0.2 * 0.6;
 
         $post['concentration_km2'] = $post["particlesNumber"] / $post["km2"];
         $post['concentration_m3'] = $post["particlesNumber"] / $post["filteredVolume"];
