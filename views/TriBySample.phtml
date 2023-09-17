@@ -1,26 +1,29 @@
-<h2>Tri pour le Sample <?= $tri[0]["Sample"] ?></h2>
+<div class="container">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Taille</th>
-            <th scope="col">Type</th>
-            <th scope="col">Couleur</th>
-            <th scope="col">Nombre</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($tri as $tri) : ?>
+    <h2 class="text-center m-5 ">Tri pour le Sample <?= $tri[0]["Sample"] ?></h2>
+
+    <table class="table table-responsive table-hover table-striped table-bordered table-dark  text-center ">
+        <thead>
             <tr>
-                <td><?= $tri["size"] ?></td>
-                <td><?= $tri["type"] ?></td>
-                <td><?= $tri["color"] ?></td>
-                <td><?= $tri["Number"] ?></td>
-                <td><a href="admin/editByTri/<?= $tri["id"] ?>">Modifier</a></td>
-                <td><a href="admin/deleteByTri/<?= $tri["id"] ?>" onclick="return confirm('Confirmer la suppression de ce tri');">Supprimer</a></td>
+                <th scope="col">Taille</th>
+                <th scope="col">Type</th>
+                <th scope="col">Couleur</th>
+                <th scope="col">Nombre</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <?php foreach ($tri as $tri) : ?>
+                <tr>
+                    <td><?= $tri["size"] ?></td>
+                    <td><?= $tri["type"] ?></td>
+                    <td><?= $tri["color"] ?></td>
+                    <td><?= $tri["Number"] ?></td>
+                    <td><a href="admin/editByTri/<?= $tri["id"] ?>"><i class="fa-regular fa-pen-to-square" style="color: #ff8000;"></i></a></td>
+                    <td><a href="admin/deleteByTri/<?= $tri["id"] ?>" onclick="return confirm('Confirmer la suppression de ce tri');"><i class="fa-regular fa-trash-can" style="color:red;"></i></a></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

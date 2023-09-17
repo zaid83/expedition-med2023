@@ -1,31 +1,34 @@
-<h2>Prélèvements</h2>
-<select name="byYear" id="select-year" class="form-control">
-    <option value="all">Toutes les années</option>
-</select>
-<table class="table samples-table">
-    <thead>
-        <tr>
-            <th scope="col">Sample</th>
-            <th scope="col">Mer</th>
-            <th scope="col">Date</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody id="samples-table">
-        <?php foreach ($prelevements as $prelevement) : ?>
+<section class="container-fluid formAddSampling ">
+    <h1 class="text-center m-5 title-asso">Prélèvements</h1>
+    <select name="byYear" id="select-year" class="form-control">
+        <option value="all">Toutes les années</option>
+    </select>
+    <br>
+    <br>
+    <table class="table table-responsive table-hover table-striped table-bordered table-dark  text-center  samples-table">
+        <thead class="">
             <tr>
-                <td><?= $prelevement["Sample"] ?></td>
-                <td><?= $prelevement["Sea"] ?></td>
-                <td><?= $prelevement["Date"] ?></td>
-                <td><a href="admin/triBySample/<?= $prelevement["Sample"] ?>">Tris associés</a></td>
-                <td><a href="admin/viewBySample/<?= $prelevement["Sample"] ?>">Voir</a></td>
-                <td><a href="admin/editBySample/<?= $prelevement["Sample"] ?>">Modifier</a></td>
-                <td><a href="admin/deleteBySample/<?= $prelevement["Sample"] ?>" onclick="return confirm('Confirmer la suppression de ce prélèvement');">Supprimer</a></td>
+                <th scope="col">Sample</th>
+                <th scope="col">Mer</th>
+                <th scope="col">Date</th>
+                <th scope="col">Tris Associés</th>
+                <th scope="col">Voir</th>
+                <th scope="col">Modifier</th>
+                <th scope="col">Supprimer</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<script src="public/javascript/samplesByYear.js"></script>
+        </thead>
+        <tbody id="samples-table">
+            <?php foreach ($prelevements as $prelevement) : ?>
+                <tr>
+                    <td><?= $prelevement["Sample"] ?></td>
+                    <td><?= $prelevement["Sea"] ?></td>
+                    <td><?= $prelevement["Date"] ?></td>
+                    <td><a href="admin/triBySample/<?= $prelevement["Sample"] ?>"><i class="fa-solid fa-filter" style="color: #ff00ff;"></i></a></td>
+                    <td><a href="admin/viewBySample/<?= $prelevement["Sample"] ?>"><i class="fa-regular fa-eye" style="color: #ffff00;"></i></td>
+                    <td><a href="admin/editBySample/<?= $prelevement["Sample"] ?>"><i class="fa-regular fa-pen-to-square" style="color: #ff8000;"></i></a></td>
+                    <td><a href="admin/deleteBySample/<?= $prelevement["Sample"] ?>" onclick="return confirm('Confirmer la suppression de ce prélèvement');"><i class="fa-regular fa-trash-can" style="color:red;"></i></a></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script src="public/javascript/samplesByYear.js"></script>

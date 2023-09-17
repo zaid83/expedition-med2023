@@ -3,6 +3,12 @@
   cursor: pointer;
   padding-bottom: 1rem;
 }
+thead {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  background-color: blue;
+  color: cyan;
+}
 
 .nav a {
   font-size: 1.2rem;

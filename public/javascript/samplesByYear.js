@@ -32,10 +32,10 @@ document.addEventListener("DOMContentLoaded", function () {
                            <td>${prelevement.Sample}</td>
                            <td>${prelevement.Sea}</td>
                            <td>${prelevement.Date}</td>
-                           <td><a href="admin/triBySample/${prelevement.Sample}">Tris associés</a></td>
-                           <td><a href="admin/viewBySample/${prelevement.Sample}">Voir</a></td>
-                           <td><a href="admin/editBySample/${prelevement.Sample}">Modifier</a></td>
-                           <td><a href="admin/deleteBySample/${prelevement.Sample}" onclick="return confirm('Confirmer la suppression de ce prélèvement');">Supprimer</a></td>
+                           <td><a href="admin/triBySample/${prelevement.Sample}"><i class="fa-solid fa-filter" style="color: #ff00ff;"></i></a></td>
+                           <td><a href="admin/viewBySample/${prelevement.Sample}"<i class="fa-regular fa-eye" style="color: #ffff00;"></i></a></td>
+                           <td><a href="admin/editBySample/${prelevement.Sample}"><i class="fa-regular fa-pen-to-square" style="color: #ff8000;"></i></a></td>
+                           <td><a href="admin/deleteBySample/${prelevement.Sample}" onclick="return confirm('Confirmer la suppression de ce prélèvement');"><i class="fa-regular fa-trash-can" style="color:red;"></i></a></td>
                        `;
           prelevementsTable.appendChild(row);
         });
