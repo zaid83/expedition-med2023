@@ -151,7 +151,12 @@ class DataRepository
 
     public function findByTri($id)
     {
-        $select = $this->pdo->prepare("SELECT * FROM tri WHERE id = ?");
+        $select = $this->pdo->prepare("SELECT id, Sample, Number, Size, sz.name as sizename, type, ty.name as typename, color, col.name as colorname 
+        FROM `tri` 
+        join tri_type ty on ty.id_type = type 
+        join tri_size sz on sz.id_size = size 
+        join tri_color col on col.id_color = color 
+        WHERE id = ?");
         $select->execute(array($id));
 
         return $select->fetch();

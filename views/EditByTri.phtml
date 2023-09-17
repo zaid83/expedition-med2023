@@ -1,27 +1,41 @@
 <section class="container-fluid  formAddSampling">
     <h1 class="text-center m-5 title-asso">Modification du tri <?= $tri["id"] ?></h1>
-    <form class="m-5 d-flex flex-wrap flex-row align-items-center" method="POST" action="Admin/editByTriPost/<?= $tri["id"] ?>">
-
-        <div class="mb-3 w-25 w-25">
+    <form class="m-5 d-flex  flex-column justify-content-center align-items-center" method="POST" action="Admin/editByTriPost/<?= $tri["id"] ?>">
+        <div class="mb-3">
             <label for="Sample" class="form-label">Echantillon</label>
-            <input type="text" class="form-control w-75" id="Sample" aria-describedby="Input Sample" name="sample" value="<?= $tri["Sample"] ?>">
-        </div>
-        <div class="mb-3 w-25 w-25">
+            <select name="sample" id="Sample" class="form-select">
+                <option selected><?= $tri["Sample"] ?></option>
+                <?php foreach ($sorts as $sort) : ?>
+                    <option value="<?= $sort['id'] ?>"><?= $sort['Sample'] ?></option>
+                <?php endforeach; ?>
+            </select>
             <label for="Size" class="form-label">Taille</label>
-            <input type="text" class="form-control w-75" id="Size" name="size" value="<?= $tri["Size"] ?>">
-        </div>
-        <div class="mb-3 w-25 w-25">
+            <select name="size" id="Size" class="form-select">
+                <option selected><?= $tri["sizename"] ?></option>
+                <?php foreach ($sizes as $size) : ?>
+                    <option value="<?= $size['id_size'] ?>"><?= $size['name'] ?></option>
+                <?php endforeach; ?>
+            </select>
             <label for="Type" class="form-label">Type</label>
-            <input type="text" class="form-control w-75" id="Type" name="type" value="<?= $tri["Type"] ?>">
-        </div>
-        <div class="mb-3 w-25 w-25">
+            <select name="type" id="Type" class="form-select">
+                <option selected><?= $tri["typename"] ?></option>
+                <?php foreach ($types as $type) : ?>
+                    <option value="<?= $type['id_type'] ?>"><?= $type['name'] ?></option>
+                <?php endforeach; ?>
+            </select>
             <label for="Color" class="form-label">Couleur</label>
-            <input type="text" class="form-control w-75" id="Color" name="color" value="<?= $tri["Color"] ?>">
+            <select name="color" id="Color" class="form-select">
+                <option selected><?= $tri["colorname"] ?></option>
+                <?php foreach ($colors as $color) : ?>
+                    <option value="<?= $color['id_color'] ?>"><?= $color['name'] ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <div class="mb-3 w-100 ">
+                <label for="Number" class="form-label">Nombre</label>
+                <input type="number" class="form-control w-75" id="Number" name="number" value="<?= $tri["Number"] ?>">
+            </div>
+            <div class="w-100 text-center p-5"><button type="submit" class="btn btn-success ">Soumettre</button></div>
         </div>
-        <div class="mb-3 w-25 w-25">
-            <label for="Number" class="form-label">Nombre</label>
-            <input type="number" class="form-control w-75" id="Number" name="number" value="<?= $tri["Number"] ?>">
-        </div>
-        <div class="w-100 text-center p-5"><button type="submit" class="btn btn-primary ">Soumettre</button></div>
     </form>
 </section>

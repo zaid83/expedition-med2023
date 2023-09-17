@@ -94,6 +94,10 @@ class AdminController
     {
         $this->user->checkConnexion($_SESSION["id"]);
         $tri = $this->data->findByTri($id);
+        $sorts = $this->data->findAllTri();
+        $sizes = $this->data->findAllSize();
+        $types = $this->data->findAllType();
+        $colors = $this->data->findAllColor();
         $page = "views/EditByTri.phtml";
         require_once "views/Layout.phtml";
     }
