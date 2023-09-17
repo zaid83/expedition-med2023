@@ -1,0 +1,52 @@
+.nav a {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color:#1B3C60;
+}
+
+.nav a:hover {
+  border-bottom: 1px solid #1B3C60;
+  padding-bottom: 10px;
+}
+
+
+
+.title-asso {
+  color:antiquewhite;
+  font-size:3rem;
+}
+
+.p-asso {
+  color:white;
+  font-weight: 600;
+  font-size:1.2rem;
+  
+}
+.presentation-text {
+  background-color:#1B3C60;
+  padding: 10px;
+} 
+  #btn-mer-sardaigne {
+    background-color: purple;
+  }
+.map-section {
+  padding: 3rem;
+}
+.seas-buttons {
+  gap: 2rem;
+   font-weight:600;
+}
+.title-legend {
+  font-size: 2rem;
+  font-weight: 600;
+  color:#1B3C60;
+}
+.map-legend {
+  font-weight:600;
+}
+.btn-seas:hover {
+  border: 3px solid black;
+}
+.btn-seas:link, .btn-seas:focus{
+  border:4px solid cyan !important;;
+}

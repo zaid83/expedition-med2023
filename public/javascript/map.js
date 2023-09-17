@@ -45,66 +45,112 @@ fetch("Data/plastiqueSum", {
   });
 // }
 
-// Récupération des données de prélèvement
-fetch("Data/data", {
-  method: "GET",
-  headers: { "Content-Type": "application/json" },
-})
-  .then(function (response) {
-    return response.json();
+// Définissez une variable pour stocker la mer sélectionnée
+let selectedSea = null;
+
+document
+  .getElementById("btn-mer-tyrrhenienne")
+  .addEventListener("click", function () {
+    selectedSea = "Mer Tyrrhenienne";
+    displaySamples();
+  });
+
+document
+  .getElementById("btn-mer-ligurienne")
+  .addEventListener("click", function () {
+    selectedSea = "Mer Ligurienne";
+    displaySamples();
+  });
+
+document
+  .getElementById("btn-mer-sardaigne")
+  .addEventListener("click", function () {
+    selectedSea = "Mer de Sardaigne";
+    displaySamples();
+  });
+
+document
+  .getElementById("btn-bouches-bonifacio")
+  .addEventListener("click", function () {
+    selectedSea = "Bouches de Bonifacio";
+    displaySamples();
+  });
+
+// Créez un tableau pour stocker les marqueurs actuels
+var currentMarkers = [];
+
+console.log(selectedSea);
+console.log(currentMarkers);
+
+function displaySamples() {
+  // Récupération des données de prélèvement
+  fetch("Data/data", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
   })
-  .then(function (response) {
-    let i = 0;
-    response.forEach((element) => {
-      let latitude = element["Start_Latitude"];
-      latitude = latitude.split(/[^\d\w]+/);
-      let latitudeDecimal = convertDMSToDecimal(
-        parseInt(latitude[0]),
-        parseInt(latitude[1]),
-        parseInt(latitude[2]),
-        parseInt(latitude[3])
-      ).toFixed(2);
-      let longitude = element["Start_Longitude"];
-      longitude = longitude.split(/[^\d\w]+/);
-      let longitudeDecimal = convertDMSToDecimal(
-        parseInt(longitude[0]),
-        parseInt(longitude[1]),
-        parseInt(longitude[2]),
-        parseInt(longitude[3])
-      ).toFixed(2);
-      if (totalPlastic[i] > 500) {
-        var marker = L.marker([latitudeDecimal, longitudeDecimal], {
-          icon: blackIcon,
-        });
-      } else if (totalPlastic[i] >= 300 && totalPlastic[i] < 500) {
-        var marker = L.marker([latitudeDecimal, longitudeDecimal], {
-          icon: maroonIcon,
-        });
-      } else if (totalPlastic[i] >= 100 && totalPlastic[i] < 300) {
-        var marker = L.marker([latitudeDecimal, longitudeDecimal], {
-          icon: redIcon,
-        });
-      } else if (totalPlastic[i] >= 50 && totalPlastic[i] < 100) {
-        var marker = L.marker([latitudeDecimal, longitudeDecimal], {
-          icon: orangeIcon,
-        });
-      } else if (totalPlastic[i] >= 0 && totalPlastic[i] < 50) {
-        var marker = L.marker([latitudeDecimal, longitudeDecimal], {
-          icon: yellowIcon,
-        });
-      }
-      marker.addTo(map);
-      marker.bindPopup(`
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      let i = 0;
+      currentMarkers.forEach(function (marker) {
+        map.removeLayer(marker);
+      });
+      currentMarkers = [];
+      response.forEach((element) => {
+        if (element["name"] === selectedSea) {
+          let latitude = element["Start_Latitude"];
+          latitude = latitude.split(/[^\d\w]+/);
+          let latitudeDecimal = convertDMSToDecimal(
+            parseInt(latitude[0]),
+            parseInt(latitude[1]),
+            parseInt(latitude[2]),
+            parseInt(latitude[3])
+          ).toFixed(2);
+          let longitude = element["Start_Longitude"];
+          longitude = longitude.split(/[^\d\w]+/);
+          let longitudeDecimal = convertDMSToDecimal(
+            parseInt(longitude[0]),
+            parseInt(longitude[1]),
+            parseInt(longitude[2]),
+            parseInt(longitude[3])
+          ).toFixed(2);
+          if (totalPlastic[i] > 500) {
+            var marker = L.marker([latitudeDecimal, longitudeDecimal], {
+              icon: blackIcon,
+            });
+          } else if (totalPlastic[i] >= 300 && totalPlastic[i] < 500) {
+            var marker = L.marker([latitudeDecimal, longitudeDecimal], {
+              icon: maroonIcon,
+            });
+          } else if (totalPlastic[i] >= 100 && totalPlastic[i] < 300) {
+            var marker = L.marker([latitudeDecimal, longitudeDecimal], {
+              icon: redIcon,
+            });
+          } else if (totalPlastic[i] >= 50 && totalPlastic[i] < 100) {
+            var marker = L.marker([latitudeDecimal, longitudeDecimal], {
+              icon: orangeIcon,
+            });
+          } else if (totalPlastic[i] >= 0 && totalPlastic[i] < 50) {
+            var marker = L.marker([latitudeDecimal, longitudeDecimal], {
+              icon: yellowIcon,
+            });
+          }
+          marker.addTo(map);
+          currentMarkers.push(marker);
+          marker.bindPopup(`
         <b>Echantillon : <a href="data/detailBySample/${element["Sample"]}">${element["Sample"]}</a></b>
         <p><em>Microplastiques récoltés : ${totalPlastic[i]}</em></p>
-        <p>Mer : ${element["Sea"]}</p>
+        <p>Mer : ${element["name"]}</p>
         <p>Date : ${element["Date"]}</p>
         <p>Concentration au km2 : ${element["Concentration_km2"]}</p>
         <p>Concentration au m3 : ${element["Concentration_m3"]}</p>
         `);
-      i++;
+          i++;
+        }
+      });
     });
-  });
+}
 
 const mediterranean = {
   lat: 41,
@@ -124,75 +170,46 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-// Coordonnées des zones de découpe
-var mediterraneanSeaCoords = [
-  [38, 0],
-  [38, 15],
-  [46, 15],
-  [46, 0],
-];
+// Coordonnées et rayon de la Mer Tyrrhénienne
+var tyrrhenianSeaCenter = [40.5, 12]; // Coordonnées du centre
+var tyrrhenianSeaRadius = 270000; // Rayon en mètres (ajustez selon vos besoins)
 
-var tyrrhenianSeaCoords = [
-  [38, 10],
-  [38, 15],
-  [42, 15],
-  [42, 10],
-];
-
-// Coordonnées de la mer Ligure
-var ligurianSeaCoords = [
-  [43.5, 7.0],
-  [43.5, 9.5],
-  [44.0, 9.5],
-  [44.0, 7.0],
-];
-
-// Coordonnées de la Mer de Sardaigne
-var sardinianSeaCoords = [
-  [39.0, 7.0],
-  [39.0, 10.0],
-  [42.0, 10.0],
-  [42.0, 7.0],
-];
-
-// Coordonnées des Bouches de Bonifacio
-var bonifacioStraitCoords = [
-  [41.4, 9.1],
-  [41.4, 9.5],
-  [41.8, 9.5],
-  [41.8, 9.1],
-];
-
-// Créer des polygones pour chaque zone de découpe
-var mediterraneanSea = L.polygon(mediterraneanSeaCoords, {
-  color: "blue",
-  fillOpacity: 0.4,
-}).addTo(map);
-mediterraneanSea.bindPopup("Mer Méditerranée");
-
-var tyrrhenianSea = L.polygon(tyrrhenianSeaCoords, {
+var tyrrhenianSeaCircle = L.circle(tyrrhenianSeaCenter, {
   color: "green",
   fillOpacity: 0.4,
+  radius: tyrrhenianSeaRadius,
 }).addTo(map);
-tyrrhenianSea.bindPopup("Mer Tyrrhénienne");
+tyrrhenianSeaCircle.bindPopup("Mer Tyrrhénienne");
 
-// Créer un polygone pour la mer Ligure
-var ligurianSea = L.polygon(ligurianSeaCoords, {
+// Coordonnées et rayon de la Mer Ligurienne
+var ligurianSeaCenter = [43.25, 8.5]; // Coordonnées du centre
+var ligurianSeaRadius = 180000; // Rayon en mètres (ajustez selon vos besoins)
+
+var ligurianSeaCircle = L.circle(ligurianSeaCenter, {
   color: "red",
   fillOpacity: 0.4,
+  radius: ligurianSeaRadius,
 }).addTo(map);
-ligurianSea.bindPopup("Mer Ligurienne");
+ligurianSeaCircle.bindPopup("Mer Ligurienne");
 
-// Créer un polygone pour la Mer de Sardaigne
-var sardinianSea = L.polygon(sardinianSeaCoords, {
+// Coordonnées et rayon de la Mer de Sardaigne
+var sardinianSeaCenter = [40.0, 7.5]; // Coordonnées du centre
+var sardinianSeaRadius = 205000; // Rayon en mètres (ajustez selon vos besoins)
+
+var sardinianSeaCircle = L.circle(sardinianSeaCenter, {
   color: "purple",
   fillOpacity: 0.4,
+  radius: sardinianSeaRadius,
 }).addTo(map);
-sardinianSea.bindPopup("Mer de Sardaigne");
+sardinianSeaCircle.bindPopup("Mer de Sardaigne");
 
-// Créer un polygone pour les Bouches de Bonifacio
-var bonifacioStrait = L.polygon(bonifacioStraitCoords, {
+// Coordonnées et rayon des Bouches de Bonifacio
+var bonifacioStraitCenter = [41.5, 9.3]; // Coordonnées du centre
+var bonifacioStraitRadius = 50000; // Rayon en mètres (ajustez selon vos besoins)
+
+var bonifacioStraitCircle = L.circle(bonifacioStraitCenter, {
   color: "orange",
   fillOpacity: 0.4,
+  radius: bonifacioStraitRadius,
 }).addTo(map);
-bonifacioStrait.bindPopup("Bouches de Bonifacio");
+bonifacioStraitCircle.bindPopup("Bouches de Bonifacio");

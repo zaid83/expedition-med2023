@@ -63,7 +63,7 @@ class DataRepository
     }
     public function findAll()
     {
-        $select = $this->pdo->prepare("SELECT * FROM prelevements ORDER by Date desc");
+        $select = $this->pdo->prepare("SELECT * FROM prelevements p Join sea s on s.id_sea = p.sea ORDER by Date desc");
         $select->execute();
 
         return $select->fetchAll();
