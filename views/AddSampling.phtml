@@ -1,7 +1,7 @@
 <section class="container-fluid formAddSampling">
   <h1 class="text-center m-5 title-asso">Ajouter un échantillon</h1>
-  <form class="m-5 d-flex flex-wrap flex-row align-items-center" method="POST" action="Data/PushPrelevement">
-    <div class="mb-3 w-25 w-25">
+  <form class="m-5 row d-flex flex-wrap flex-row align-items-center" method="POST" action="Data/PushPrelevement">
+    <div class="col-md-3 mb-3">
       <label for="Sample" class="form-label">Echantillon</label>
       <input type="text" class="form-control w-75" id="Sample" aria-describedby="Input Sample" name="sample">
       <br>
@@ -27,7 +27,7 @@
 
     </div>
 
-    <div class="mb-3 w-25 w-25">
+    <div class=" col-md-3 mb-3">
       <label for="BoatSpeed" class="form-label">Vitesse du Bateau</label>
       <input type="number" class="form-control w-75" id="BoatSpeed" name="boatSpeed" " min=" 0">
       <br>
@@ -55,7 +55,7 @@
 
 
 
-    <div class="mb-3 w-25 w-25">
+    <div class=" col-md-3 mb-3">
       <label for="StartLatitude" class="form-label">Début latitude</label>
       <input type="text" class="form-control w-75" id="StartLatitude" name="startLatitude">
       <br>
@@ -79,7 +79,7 @@
     </div>
 
 
-    <div class="mb-3 w-25 w-25">
+    <div class=" col-md-3 mb-3">
 
       <label for="PH" class="form-label">PH</label>
       <input type="number" class="form-control w-75" id="PH" name="ph" 0" min="0">
@@ -110,7 +110,7 @@
 
     </div>
 
-    <div class="mb-3 w-25 w-25 w-100">
+    <div class="mb-3 w-100">
       <label for="Commentaires" class="form-label">Commentaires</label>
       <textarea id="Commentaires" class="form-control" id="exampleFormControlTextarea1" rows="3" name="commentaires"></textarea>
     </div>
