@@ -2,6 +2,11 @@
     <thead>
         <tr>
             <th scope="col">Température de l'eau</th>
+            <th scope="col">Trafic</th>
+            <th scope="col">Courant</th>
+            <th scope="col">Ph</th>
+            <th scope="col">Oxygene Dissous</th>
+            <th scope="col">Salinite</th>
             <th scope="col">Volume filtré</th>
             <th scope="col">Etat de la mer</th>
             <th scope="col">Heure de départ</th>
@@ -12,10 +17,15 @@
     <tbody>
         <tr>
             <td><?= $details["Temperature_C"] ?></td>
-            <td><?= $details["Volume_filtered_m3"] ?></td>
-            <td><?= $details["Sea_state_B"] ?></td>
-            <td><?= $details["Start_time_UTC"] ?></td>
-            <td><?= $details["Wind_force_B"] ?></td>
+            <td><?= $details["Trafic"] ?></td>
+            <td><?= $details["courant"] ?></td>
+            <td><?= $details["pH"] ?></td>
+            <td><?= $details["Oxygene_Dissous_mg_L"] ?></td>
+            <td><?= $details["Salinite_SAL_PSU"] ?></td>
+            <td><?= $details["Volume_Filtered_m3"] ?></td>
+            <td><?= $details["Sea_State_B"] ?></td>
+            <td><?= $details["Start_Time_UTC"] ?></td>
+            <td><?= $details["Wind_Force_B"] ?></td>
             <td><?= $details["Commentaires"] ?></td>
         </tr>
     </tbody>

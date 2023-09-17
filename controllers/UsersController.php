@@ -30,6 +30,7 @@ class UsersController
 
     public function register()
     {
+        $this->user->checkConnexion($_SESSION["id"]);
         $pageTitle = "Inscription";
         $page = "views/Register.phtml";
         require_once "views/Layout.phtml";

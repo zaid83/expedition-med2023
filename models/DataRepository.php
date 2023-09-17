@@ -217,7 +217,7 @@ class DataRepository
     }
     public function findDetailBySample($id)
     {
-        $select = $this->pdo->prepare('SELECT Temperature_C, Volume_filtered_m3, Commentaires, Sea_state_B, Start_time_UTC, Wind_force_B FROM prelevements WHERE Sample = ?');
+        $select = $this->pdo->prepare('SELECT * FROM prelevements WHERE Sample = ?');
         $select->execute(array($id));
 
         return $select->fetch();
@@ -273,7 +273,7 @@ class DataRepository
     }
     public function findDetailBySea($id)
     {
-        $select = $this->pdo->prepare('SELECT Temperature_C, Volume_filtered_m3, Commentaires, Sea_state_B, Start_time_UTC, Wind_force_B FROM prelevements WHERE Sea = ?');
+        $select = $this->pdo->prepare('SELECT * FROM prelevements WHERE Sea = ?');
         $select->execute(array($id));
 
         return $select->fetch();
@@ -362,14 +362,18 @@ class DataRepository
         $stmt = $this->pdo->prepare('SELECT id_type FROM tri_type WHERE name = ?');
         $stmt->execute([$type]);
         $resultType = $stmt->fetch(PDO::FETCH_ASSOC);
-        $typeID = $resultType['id_type'];
+        if ($resultType) {
+            $typeID = $resultType['id_type'];
+        }
 
 
         // Recherche de la couleur approprie
         $stmt = $this->pdo->prepare('SELECT id_color FROM tri_color WHERE name = ?');
         $stmt->execute([$color]);
         $resultColor = $stmt->fetch(PDO::FETCH_ASSOC);
-        $colorID = $resultColor['id_color'];
+        if ($resultColor) {
+            $colorID = $resultColor['id_color'];
+        }
 
         $insert = $this->pdo->prepare('INSERT INTO tri (Sample, Size, Type, Color, Number) VALUES (?, ?, ?, ?, ?)');
         $result = $insert->execute([$sample, $sizeID, $typeID, $colorID, $number]);
@@ -444,7 +448,11 @@ class DataRepository
         $Start_time = ($heures * 60) + $minutes;
 
         $tt = $End_time - $Start_time;
-        $km2 = $data[16] * 1.852 * ($tt / 60) * (60 * 1e-5);
+        if ($tt >= 0) {
+            $km2 = $data[16] * 1.852 * ($tt / 60) * (60 * 1e-5);
+        } else {
+            $km2 = $data[16] * 1.852 * 0.333 * (60 * 1e-5);
+        }
 
         $Commentaires = $data[31];
         $Nombre_Particules_gt_1_mm = $data[32];

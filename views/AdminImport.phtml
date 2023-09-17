@@ -1,35 +1,96 @@
-<!-- Formulaire d'import des "tris" -->
-<form class="form-horizontal" action="Data/import" method="post" name="upload_excel" enctype="multipart/form-data">
-    <fieldset>
-        <legend>Import des tris</legend>
-        <div class="form-group">
-            <div class="col-md-4">
-                <input type="file" name="file" id="file" class="input-large">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="singlebutton">Validation</label>
-            <div class="col-md-4">
-                <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Chargement...">Ajouter</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
+<section class="container-fluid formAddSampling">
+    <div class="row">
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <form class="form-horizontal" action="Data/import" method="post" name="upload_excel" enctype="multipart/form-data">
 
-<!-- Formulaire d'import des "prélèvements" -->
-<form class="form-horizontal" action="Data/importSampling" method="post" name="upload_excel" enctype="multipart/form-data">
-    <fieldset>
-        <legend>Import des prélèvements</legend>
-        <div class="form-group">
-            <div class="col-md-4">
-                <input type="file" name="file" id="file" class="input-large">
-            </div>
+                <fieldset>
+                    <legend class=" m-5 title-asso">Import des tris</legend>
+                    <div class="form-group">
+
+
+                        <div class="file-upload mb-5">
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName">Choisr un fichier</div>
+                                <div class="file-select-name" id="noFile">Pas de fichier</div>
+                                <input type="file" name="file" id="chooseFile" class="input-large">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <div class="text-center">
+                            <button type="submit" id="submit" name="Import" class="btn btn-success button-loading" data-loading-text="Chargement...">Ajouter</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
         </div>
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="singlebutton">Validation</label>
-            <div class="col-md-4">
-                <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Chargement...">Ajouter</button>
-            </div>
+        <div class="col-md-6 d-flex flex-column align-items-center">
+            <!-- Formulaire d'import des "prélèvements" -->
+            <form class="form-horizontal" action="Data/importSampling" method="post" name="upload_excel" enctype="multipart/form-data">
+                <fieldset>
+                    <legend class=" m-5 title-asso">Import des prélèvements</legend>
+                    <div class="form-group">
+
+
+                        <div class="file-upload file-upload2 mb-5">
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName2">Choisr un fichier</div>
+                                <div class="file-select-name" id="noFile2">Pas de fichier</div>
+                                <input type="file" name="file" id="chooseFile2" class="input-large">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group ">
+                        <div class="text-center">
+                            <button type="submit" id="submit" name="Import" class="btn btn-success button-loading" data-loading-text="Chargement...">Ajouter</button>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
         </div>
-    </fieldset>
-</form>
+    </div>
+</section>
+
+<script>
+    // Sélectionnez l'élément input file par son ID
+    var chooseFileInput = document.getElementById('chooseFile');
+    var chooseFileInput2 = document.getElementById('chooseFile2');
+
+    // Ajoutez un écouteur d'événements "change" à l'élément input file
+    chooseFileInput.addEventListener('change', function() {
+        var filename = chooseFileInput.value;
+        var fileUpload = document.querySelector('.file-upload');
+        var noFileText = document.getElementById('noFile');
+
+        if (/^\s*$/.test(filename)) {
+            fileUpload.classList.remove('active');
+            noFileText.textContent = "No file chosen...";
+        } else {
+            fileUpload.classList.add('active');
+            noFileText.textContent = filename.replace("C:\\fakepath\\", "");
+        }
+    });
+
+
+    // Ajoutez un écouteur d'événements "change" à l'élément input file
+    chooseFileInput2.addEventListener('change', function() {
+        var filename2 = chooseFileInput2.value;
+        var fileUpload2 = document.querySelector('.file-upload2');
+        var noFileText2 = document.getElementById('noFile2');
+
+        if (/^\s*$/.test(filename2)) {
+            fileUpload2.classList.remove('active');
+            noFileText2.textContent = "No file chosen...";
+        } else {
+            fileUpload2.classList.add('active');
+            noFileText2.textContent = filename2.replace("C:\\fakepath\\", "");
+        }
+    });
+</script>

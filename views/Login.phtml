@@ -1,17 +1,19 @@
-<form class="m-5" method="POST" action="Users/loginPost">
-  <div class="mb-3">
-    <label for="Email" class="form-label">Adresse Email</label>
-    <input type="email" class="form-control" id="Email" name="email" aria-describedby="input your Email Adress">
-  </div>
-  <div class="mb-3">
-    <label for="Password" class="form-label">Mot de Passe</label>
-    <input type="password" class="form-control" id="Password" name="password">
-  </div>
-  <div class="text-center"><button type="submit" class="btn btn-primary">Se connecter</button></div>
-  <?php
-  if (isset($erreur)) {
-    echo "<p style='color:red'>$erreur</p>";
-  }
-  ?>
+<section class="container-fluid formAddSampling">
+  <h1 class="text-center m-5 title-asso">Se connecter</h1>
+  <form class="m-5" method="POST" action="Users/loginPost">
+    <div class="mb-3">
+      <label for="Email" class="form-label">Adresse Email</label>
+      <input type="email" class="form-control" id="Email" name="email" aria-describedby="input your Email Adress">
+    </div>
+    <div class="mb-3">
+      <label for="Password" class="form-label">Mot de Passe</label>
+      <input type="password" class="form-control" id="Password" name="password">
+    </div>
+    <div class="text-center"><button type="submit" class="btn btn-success">Se connecter</button></div>
+    <?php
+    if (isset($erreur)) {
+      echo "<p style='color:red'>$erreur</p>";
+    }
+    ?>
 
-</form>
+  </form>

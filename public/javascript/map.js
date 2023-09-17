@@ -55,6 +55,11 @@ document
     displaySamples();
   });
 
+document.getElementById("btn-lion").addEventListener("click", function () {
+  selectedSea = "Golfe du lion";
+  displaySamples();
+});
+
 document
   .getElementById("btn-mer-ligurienne")
   .addEventListener("click", function () {
@@ -143,8 +148,8 @@ function displaySamples() {
         <p><em>Microplastiques récoltés : ${totalPlastic[i]}</em></p>
         <p>Mer : ${element["name"]}</p>
         <p>Date : ${element["Date"]}</p>
-        <p>Concentration au km2 : ${element["Concentration_km2"]}</p>
-        <p>Concentration au m3 : ${element["Concentration_m3"]}</p>
+        <p>Concentration au km2 : ${element["Concentration_nb_km2"]}</p>
+        <p>Concentration au m3 : ${element["Concentration_nb_m3"]}</p>
         `);
           i++;
         }
@@ -229,5 +234,20 @@ fetch("Data/allSeasJson", {
     }).addTo(map);
     bonifacioStraitCircle.bindPopup(
       `<b>Echantillon : <a href="data/detailBySeas/${response[1].id_sea}">Bouches de Bonifacio</a></b>`
+    );
+
+    // Coordonnées et rayon du Golfe du Lion
+    var gulfOfLionCenter = [42.5, 5.0]; // Coordonnées du centre
+    var gulfOfLionRadius = 160000; // Rayon en mètres (ajustez selon vos besoins)
+
+    var gulfOfLionCircle = L.circle(gulfOfLionCenter, {
+      color: "cyan",
+      fillOpacity: 0.4,
+      radius: gulfOfLionRadius,
+    }).addTo(map);
+
+    // Légende pour le Golfe du Lion
+    gulfOfLionCircle.bindPopup(
+      `<b>Echantillon : <a href="data/detailBySeas/${response[4].id_sea}">Golfe du lion</a></b>`
     );
   });

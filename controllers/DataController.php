@@ -198,7 +198,7 @@ class DataController
       foreach ($data as $row) {
         $csvImporter->insertData($row); // Appel de la méthode insertData
       }
-
+      return header('Location: /expedition-med/Users/index');
       $page = "views/AdminIndex.phtml";
       require_once "views/Layout.phtml";
     }
