@@ -20,54 +20,19 @@
         </tr>
     </tbody>
 </table>
-<h2>Tri par Type</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Type</th>
-            <th scope="col">Quantité</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($resultT as $res) : ?>
-            <tr>
-                <td><?= $res["Type"] ?></td>
-                <td><?= $res["total"] ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<h2>Tri par Couleur</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Couleur</th>
-            <th scope="col">Quantité</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($resultC as $res) : ?>
-            <tr>
-                <td><?= $res["Color"] ?></td>
-                <td><?= $res["total"] ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<h2>Tri par Taille</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Taille</th>
-            <th scope="col">Quantité</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($resultS as $res) : ?>
-            <tr>
-                <td><?= $res["Size"] ?></td>
-                <td><?= $res["total"] ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+
+<div class="row">
+    <div class="col pie-chart">
+        <canvas id="pie-type-sample"></canvas>
+
+    </div>
+    <div class="col pie-chart">
+        <canvas id="pie-color-sample"></canvas>
+    </div>
+    <div class="col pie-chart">
+        <canvas id="pie-size-sample"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="public/javascript/chart.js"></script>

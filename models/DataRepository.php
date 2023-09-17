@@ -187,21 +187,30 @@ class DataRepository
     }
     public function findTypeBySample($id)
     {
-        $select = $this->pdo->prepare('select Type, SUM(number) as "total" from tri where sample = ? group by Type');
+        $select = $this->pdo->prepare("SELECT Type, ty.name as typename,  SUM(number) as total 
+        from tri tr 
+        join tri_type ty on ty.id_type = tr.type
+        where sample = ? group by Type");
         $select->execute(array($id));
 
         return $select->fetchAll();
     }
     public function findColorBySample($id)
     {
-        $select = $this->pdo->prepare('select Color, SUM(number) as "total" from tri where sample = ? group by Color');
+        $select = $this->pdo->prepare("SELECT color, col.name as colorname,  SUM(number) as total 
+        from tri tr 
+        join tri_color col on col.id_color = tr.color
+        where sample = ? group by color");
         $select->execute(array($id));
 
         return $select->fetchAll();
     }
     public function findSizeBySample($id)
     {
-        $select = $this->pdo->prepare('select Size, SUM(number) as "total" from tri where sample = ? group by Size');
+        $select = $this->pdo->prepare("SELECT size, sz.name as sizename,  SUM(number) as total 
+        from tri tr 
+        join tri_size sz on sz.id_size = tr.size
+        where sample = ? group by size");
         $select->execute(array($id));
 
         return $select->fetchAll();
@@ -209,6 +218,62 @@ class DataRepository
     public function findDetailBySample($id)
     {
         $select = $this->pdo->prepare('SELECT Temperature_C, Volume_filtered_m3, Commentaires, Sea_state_B, Start_time_UTC, Wind_force_B FROM prelevements WHERE Sample = ?');
+        $select->execute(array($id));
+
+        return $select->fetch();
+    }
+
+
+    // BY SEAS 
+
+    public function numberBySea()
+    {
+        $select = $this->pdo->prepare('SELECT SUM(Number) as "total", Sea FROM prelevements p
+        join tri tr on p.sample = tr.sample
+        GROUP BY Sea');
+        $select->execute();
+
+        return $select->fetchAll();
+    }
+    public function findTypeBySea($id)
+    {
+        $select = $this->pdo->prepare("SELECT Type, ty.name as typename,  Sea,  SUM(number) as total 
+        from prelevements p 
+        join tri tr on  p.sample = tr.sample
+        join tri_type ty on ty.id_type = tr.type
+       
+        where Sea = ? group by Type");
+        $select->execute(array($id));
+
+        return $select->fetchAll();
+    }
+    public function findColorBySea($id)
+    {
+        $select = $this->pdo->prepare("SELECT color, col.name as colorname,  Sea,  SUM(number) as total 
+        from prelevements p 
+        join tri tr on  p.sample = tr.sample
+        join tri_color col on col.id_color = tr.color
+       
+        where Sea = ? group by Color");
+        $select->execute(array($id));
+
+        return $select->fetchAll();
+    }
+    public function findSizeBySea($id)
+    {
+        $select = $this->pdo->prepare("SELECT size, sz.name as sizename,  Sea,  SUM(number) as total 
+        from prelevements p 
+        join tri tr on  p.sample = tr.sample
+        join tri_size sz on sz.id_size = tr.size
+       
+        where Sea = ? group by Size");
+        $select->execute(array($id));
+
+        return $select->fetchAll();
+    }
+    public function findDetailBySea($id)
+    {
+        $select = $this->pdo->prepare('SELECT Temperature_C, Volume_filtered_m3, Commentaires, Sea_state_B, Start_time_UTC, Wind_force_B FROM prelevements WHERE Sea = ?');
         $select->execute(array($id));
 
         return $select->fetch();
@@ -467,7 +532,7 @@ class DataRepository
 
     public function findAllSeas()
     {
-        $select = $this->pdo->prepare("SELECT id_sea, name from sea");
+        $select = $this->pdo->prepare("SELECT id_sea, name from sea ");
         $select->execute();
         return $select->fetchAll();
     }

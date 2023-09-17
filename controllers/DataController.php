@@ -51,6 +51,12 @@ class DataController
     echo json_encode($result);
   }
 
+  public function allSeasJson()
+  {
+    $result = $this->data->findAllSeas();
+    echo json_encode($result);
+  }
+
   public function selectSampleJson()
   {
     $this->user->checkConnexion($_SESSION["id"]);
@@ -117,6 +123,68 @@ class DataController
     $page = "views/DetailBySample.phtml";
     require_once "views/Layout.phtml";
   }
+
+  public function detailBySeas($id)
+  {
+    $resultT = $this->data->findTypeBySea($id);
+    $resultC = $this->data->findColorBySea($id);
+    $resultS = $this->data->findSizeBySea($id);
+    $details = $this->data->findDetailBySea($id);
+    $pageTitle = "Expedition Med";
+    $page = "views/DetailBySeas.phtml";
+    require_once "views/Layout.phtml";
+  }
+  public function detailBySampleJson($id)
+  {
+    $resultT = $this->data->findTypeBySample($id);
+    $resultC = $this->data->findColorBySample($id);
+    $resultS = $this->data->findSizeBySample($id);
+    $details = $this->data->findDetailBySample($id);
+
+    // Regroupez les tableaux dans un tableau associatif
+    $data = [
+      "types" => $resultT,
+      "colors" => $resultC,
+      "sizes" => $resultS,
+      "details" => $details
+    ];
+
+    // Convertissez le tableau associatif en JSON
+    $jsonResponse = json_encode($data);
+
+    // Définissez l'en-tête HTTP pour indiquer que la réponse est JSON
+    header('Content-Type: application/json');
+
+    // Envoyez la réponse JSON au frontend
+    echo $jsonResponse;
+  }
+
+
+  public function detailBySeasJson($id)
+  {
+    $resultT = $this->data->findTypeBySea($id);
+    $resultC = $this->data->findColorBySea($id);
+    $resultS = $this->data->findSizeBySea($id);
+    $details = $this->data->findDetailBySea($id);
+
+    // Regroupez les tableaux dans un tableau associatif
+    $data = [
+      "types" => $resultT,
+      "colors" => $resultC,
+      "sizes" => $resultS,
+      "details" => $details
+    ];
+
+    // Convertissez le tableau associatif en JSON
+    $jsonResponse = json_encode($data);
+
+    // Définissez l'en-tête HTTP pour indiquer que la réponse est JSON
+    header('Content-Type: application/json');
+
+    // Envoyez la réponse JSON au frontend
+    echo $jsonResponse;
+  }
+
 
   // Actions d'importation de données
 

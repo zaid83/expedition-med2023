@@ -170,46 +170,64 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-// Coordonnées et rayon de la Mer Tyrrhénienne
-var tyrrhenianSeaCenter = [40.5, 12]; // Coordonnées du centre
-var tyrrhenianSeaRadius = 270000; // Rayon en mètres (ajustez selon vos besoins)
+fetch("Data/allSeasJson", {
+  method: "GET",
+  headers: { "Content-Type": "application/json" },
+})
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (response) {
+    console.log(response);
+    // Coordonnées et rayon de la Mer Tyrrhénienne
+    var tyrrhenianSeaCenter = [40.5, 12]; // Coordonnées du centre
+    var tyrrhenianSeaRadius = 270000; // Rayon en mètres (ajustez selon vos besoins)
 
-var tyrrhenianSeaCircle = L.circle(tyrrhenianSeaCenter, {
-  color: "green",
-  fillOpacity: 0.4,
-  radius: tyrrhenianSeaRadius,
-}).addTo(map);
-tyrrhenianSeaCircle.bindPopup("Mer Tyrrhénienne");
+    var tyrrhenianSeaCircle = L.circle(tyrrhenianSeaCenter, {
+      color: "green",
+      fillOpacity: 0.4,
+      radius: tyrrhenianSeaRadius,
+    }).addTo(map);
+    tyrrhenianSeaCircle.bindPopup(
+      `<b>Echantillon : <a href="data/detailBySeas/${response[0].id_sea}">Mer Tyrrhénienne</a></b>`
+    );
 
-// Coordonnées et rayon de la Mer Ligurienne
-var ligurianSeaCenter = [43.25, 8.5]; // Coordonnées du centre
-var ligurianSeaRadius = 180000; // Rayon en mètres (ajustez selon vos besoins)
+    // Coordonnées et rayon de la Mer Ligurienne
+    var ligurianSeaCenter = [43.25, 8.5]; // Coordonnées du centre
+    var ligurianSeaRadius = 180000; // Rayon en mètres (ajustez selon vos besoins)
 
-var ligurianSeaCircle = L.circle(ligurianSeaCenter, {
-  color: "red",
-  fillOpacity: 0.4,
-  radius: ligurianSeaRadius,
-}).addTo(map);
-ligurianSeaCircle.bindPopup("Mer Ligurienne");
+    var ligurianSeaCircle = L.circle(ligurianSeaCenter, {
+      color: "red",
+      fillOpacity: 0.4,
+      radius: ligurianSeaRadius,
+    }).addTo(map);
+    ligurianSeaCircle.bindPopup(
+      `<b>Echantillon : <a href="data/detailBySeas/${response[3].id_sea}">Mer Ligurienne</a></b>`
+    );
 
-// Coordonnées et rayon de la Mer de Sardaigne
-var sardinianSeaCenter = [40.0, 7.5]; // Coordonnées du centre
-var sardinianSeaRadius = 205000; // Rayon en mètres (ajustez selon vos besoins)
+    // Coordonnées et rayon de la Mer de Sardaigne
+    var sardinianSeaCenter = [40.0, 7.5]; // Coordonnées du centre
+    var sardinianSeaRadius = 205000; // Rayon en mètres (ajustez selon vos besoins)
 
-var sardinianSeaCircle = L.circle(sardinianSeaCenter, {
-  color: "purple",
-  fillOpacity: 0.4,
-  radius: sardinianSeaRadius,
-}).addTo(map);
-sardinianSeaCircle.bindPopup("Mer de Sardaigne");
+    var sardinianSeaCircle = L.circle(sardinianSeaCenter, {
+      color: "purple",
+      fillOpacity: 0.4,
+      radius: sardinianSeaRadius,
+    }).addTo(map);
+    sardinianSeaCircle.bindPopup(
+      `<b>Echantillon : <a href="data/detailBySeas/${response[2].id_sea}">Mer de Sardaigne</a></b>`
+    );
 
-// Coordonnées et rayon des Bouches de Bonifacio
-var bonifacioStraitCenter = [41.5, 9.3]; // Coordonnées du centre
-var bonifacioStraitRadius = 50000; // Rayon en mètres (ajustez selon vos besoins)
+    // Coordonnées et rayon des Bouches de Bonifacio
+    var bonifacioStraitCenter = [41.5, 9.3]; // Coordonnées du centre
+    var bonifacioStraitRadius = 50000; // Rayon en mètres (ajustez selon vos besoins)
 
-var bonifacioStraitCircle = L.circle(bonifacioStraitCenter, {
-  color: "orange",
-  fillOpacity: 0.4,
-  radius: bonifacioStraitRadius,
-}).addTo(map);
-bonifacioStraitCircle.bindPopup("Bouches de Bonifacio");
+    var bonifacioStraitCircle = L.circle(bonifacioStraitCenter, {
+      color: "orange",
+      fillOpacity: 0.4,
+      radius: bonifacioStraitRadius,
+    }).addTo(map);
+    bonifacioStraitCircle.bindPopup(
+      `<b>Echantillon : <a href="data/detailBySeas/${response[1].id_sea}">Bouches de Bonifacio</a></b>`
+    );
+  });
