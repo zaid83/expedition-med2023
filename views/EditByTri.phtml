@@ -4,28 +4,28 @@
         <div class="mb-3">
             <label for="Sample" class="form-label">Echantillon</label>
             <select name="sample" id="Sample" class="form-select">
-                <option selected><?= $tri["Sample"] ?></option>
+                <option value="<?= $tri['Sample'] ?>" selected><?= $tri["Sample"] ?></option>
                 <?php foreach ($sorts as $sort) : ?>
                     <option value="<?= $sort['id'] ?>"><?= $sort['Sample'] ?></option>
                 <?php endforeach; ?>
             </select>
             <label for="Size" class="form-label">Taille</label>
             <select name="size" id="Size" class="form-select">
-                <option selected><?= $tri["sizename"] ?></option>
+                <option value="<?= $tri['Size'] ?>" selected><?= $tri["sizename"] ?></option>
                 <?php foreach ($sizes as $size) : ?>
                     <option value="<?= $size['id_size'] ?>"><?= $size['name'] ?></option>
                 <?php endforeach; ?>
             </select>
             <label for="Type" class="form-label">Type</label>
             <select name="type" id="Type" class="form-select">
-                <option selected><?= $tri["typename"] ?></option>
+                <option value="<?= $tri['type'] ?>" selected><?= $tri["typename"] ?></option>
                 <?php foreach ($types as $type) : ?>
                     <option value="<?= $type['id_type'] ?>"><?= $type['name'] ?></option>
                 <?php endforeach; ?>
             </select>
             <label for="Color" class="form-label">Couleur</label>
             <select name="color" id="Color" class="form-select">
-                <option selected><?= $tri["colorname"] ?></option>
+                <option value="<?= $tri['color'] ?>" selected><?= $tri["colorname"] ?></option>
                 <?php foreach ($colors as $color) : ?>
                     <option value="<?= $color['id_color'] ?>"><?= $color['name'] ?></option>
                 <?php endforeach; ?>

@@ -103,8 +103,10 @@ class AdminController
     }
     public function editByTriPost($id)
     {
+        var_dump($_POST);
         $this->user->checkConnexion($_SESSION["id"]);
         $this->data->editByTri($id, $_POST);
+
         return header('Location: /expedition-med/admin/triBySample/' . $_POST["sample"]);
     }
 
